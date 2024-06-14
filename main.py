@@ -194,7 +194,7 @@ with st.expander("Share Return", expanded=True):
 with st.expander("Earnings & Growth", expanded=True):
 
     earnings_df = last_5_years_fundamentals.loc[["Revenue", "Gross Profit", "EBITDA", "Operating Income", "Net Income", "Free Cash Flow", "Dividends Paid"],:].copy()
-    earnings_df = earnings_df.applymap('{:,.0f}'.format)
+    earnings_df = earnings_df.map('{:,.0f}'.format)
 
     growth_df = last_5_years_fundamentals.iloc[-115:-55,-1]
 
@@ -208,7 +208,7 @@ with st.expander("Earnings & Growth", expanded=True):
         new_growth_df.at[index, "Growth 10y. av."] = growth_df.loc[index+" growth 10y. av."]
         new_growth_df.at[index, "CAGR"] = growth_df.loc[index+" cagr"]
 
-    new_growth_df = new_growth_df.applymap('{:.2%}'.format)
+    new_growth_df = new_growth_df.map('{:.2%}'.format)
     
     buyback_rate = round(growth_df.at["Weighted Avg. Shares Outs. cagr"] * 100,2)
 
@@ -283,7 +283,7 @@ with st.expander("Profitability", expanded=True):
 
     returns_df = last_5_years_fundamentals.loc[["Return on Assets", "Return on Equity", "Return on Invested Capital"],:]
     returns_df["Average"] = returns_df.mean(axis=1)
-    new_returns_df = returns_df.applymap('{:.2%}'.format)
+    new_returns_df = returns_df.map('{:.2%}'.format)
 
     prof_columns[0].dataframe(data=new_returns_df)
 
@@ -291,7 +291,7 @@ with st.expander("Profitability", expanded=True):
     margins_df = last_5_years_fundamentals.loc[["Gross Profit Ratio", "EBITDA ratio", "Operating Income ratio", "Net Income Ratio", "FCF Ratio"],:]
     margins_df.loc[["Gross Profit Ratio", "EBITDA ratio", "Operating Income ratio", "Net Income Ratio"]] = margins_df.loc[["Gross Profit Ratio", "EBITDA ratio", "Operating Income ratio", "Net Income Ratio"]] / 100
     margins_df["Average"] = margins_df.mean(axis=1)
-    new_margins_df = margins_df.applymap('{:.2%}'.format)
+    new_margins_df = margins_df.map('{:.2%}'.format)
 
     prof_columns[0].dataframe(data=new_margins_df)
 
